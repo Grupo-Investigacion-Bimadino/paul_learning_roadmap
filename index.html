@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba de Estilos de Aprendizaje</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="test_codigo.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        #container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            color: #4a90e2;
+        }
+        #notis, #instrucciones, #questions, #buttons, #resultados, #contenedorInterpreta {
+            margin: 20px 0;
+        }
+        .hideit { display: none; }
+        .showit { display: block; }
+        button {
+            background-color: #4a90e2;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #357ABD;
+        }
+        #pregunta {
+            font-size: 18px;
+            margin: 20px 0;
+        }
+        #contaQ {
+            font-size: 14px;
+            color: #888;
+        }
+        #resultados div {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            background: #e9f1f7;
+            color: #333;
+        }
+        #contenedorInterpreta img {
+            max-width: 100%;
+            height: auto;
+        }
+        a {
+            color: #4a90e2;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Prueba de Estilos de Aprendizaje</h1>
+        <div id="notis">Instrucciones de la prueba...</div>
+        <div id="instrucciones" class="showit">
+            <p>Por favor, lea cada una de las siguientes preguntas cuidadosamente y responda de acuerdo a cómo se sienta identificado/a.</p>
+            <button id="btnStart">Comenzar</button>
+        </div>
+        <div id="questions" class="hideit">
+            <p id="pregunta"></p>
+            <input type="hidden" id="numberQ" value="1">
+            <p id="contaQ">0/80</p>
+        </div>
+        <div id="buttons" class="hideit">
+            <button id="btnSi">Sí</button>
+            <button id="btnNo">No</button>
+        </div>
+        <div id="resultados" class="hideit">
+            <p>Resultados</p>
+            <div id="porcentajeActivo"></div>
+            <div id="porcentajeTeorico"></div>
+            <div id="porcentajePragmatico"></div>
+            <div id="porcentajeReflexivo"></div>
+        </div>
+        <div id="contenedorInterpreta" class="hideit">
+            <h2 id="tipoEstilo"></h2>
+            <img id="estiloImg" src="" alt="">
+            <p id="nivelPreferencia"></p>
+            <a id="video" href="#" target="_blank">Ver video</a>
+            <p id="pEres"></p>
+            <p id="pCaracteristicas"></p>
+            <p id="pPreguntaResponder"></p>
+            <p id="pAprendeMejor"></p>
+            <p id="pCuestaTrabajo"></p>
+            <p id="pRecomendaciones"></p>
+            <p id="parrafo_RegresarUp"><a href="#">Regresar</a></p>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#btnStart').click(function(event) {
+                event.preventDefault();
+                contaQ++;
+
+                $("#notis").addClass('hideit');
+                $("#instrucciones").addClass('hideit');
+                $("#questions").removeClass('hideit').addClass('showit');
+                $("#buttons, #contentContaQ").removeClass('hideit').addClass('showit');
+                $('#contaQ').html(contaQ + '/80');
+
+                randomQuestion();
+            });
+
+            $('#btnSi').click(function() {
+                processAnswer(true);
+            });
+
+            $('#btnNo').click(function() {
+                processAnswer(false);
+            });
+
+            function randomQuestion() {
+                var max = questions.length;
+                var realSize = max - 1;
+
+                if (max > 0) {
+                    numberQuestion = Math.floor(Math.random() * (realSize - 0 + 1) + 0);
+                } else {
+                    return;
+                }
+
+                var questionXplode = questions[numberQuestion].split("_");
+                var questionRemove = questions[numberQuestion];
+
+                questions.splice($.inArray(questionRemove, questions), 1);
+
+                $("#pregunta").html(questionXplode[1]);
+                $("#numberQ").val(questionXplode[0]);
+                $("#contaQ").html(contaQ + '/80');
+            }
+
+            function processAnswer(answer) {
+                var number_Q = $("#numberQ").val();
+
+                switch (number_Q) {
+                    // Activos 3, 5, 7, 9, 13, 20, 26, 27, 35, 37, 41, 43, 46, 48, 51, 61, 67, 74, 75, 77
+                    case '3':
+                    case '5':
+                    case '7':
+                    case '9':
+                    case '13':
+                    case '20':
+                    case '26':
+                    case '27':
+                    case '35':
+                    case '37':
+                    case '41':
+                    case '43':
+                    case '46':
+                    case '48':
+                    case '51':
+                    case '61':
+                    case '67':
+                    case '74':
+                    case '75':
+                    case '77':
+                        if (answer) activo++;
+                        break;
+
+                    // Reflexivos 10, 16, 18, 19, 28, 31, 32, 34, 36, 39, 42, 44, 49, 55, 58, 63, 65, 69, 70, 79
+                    case '10':
+                    case '16':
+                    case '18':
+                    case '19':
+                    case '28':
+                    case '31':
+                    case '32':
+                    case '34':
+                    case '36':
+                    case '39':
+                    case '42':
+                    case '44':
+                    case '49':
+                    case '55':
+                    case '58':
+                    case '63':
+                    case '65':
+                    case '69':
+                    case '70':
+                    case '79':
+                        if (answer) reflexivo++;
+                        break;
+
+                    // Teorico 2, 4, 6, 11, 15, 17, 21, 23, 25, 29, 33, 45, 50, 54, 60, 64, 66, 71, 78, 80
+                    case '2':
+                    case '4':
+                    case '6':
+                    case '11':
+                    case '15':
+                    case '17':
+                    case '21':
+                    case '23':
+                    case '25':
+                    case '29':
+                    case '33':
+                    case '45':
+                    case '50':
+                    case '54':
+                    case '60':
+                    case '64':
+                    case '66':
+                    case '71':
+                    case '78':
+                    case '80':
+                        if (answer) teorico++;
+                        break;
+
+                    // pragmatico 1, 8, 12, 14, 22, 24, 30, 38, 40, 47, 52, 53, 56, 57, 59, 62, 68, 72, 73, 76
+                    case '1':
+                    case '8':
+                    case '12':
+                    case '14':
+                    case '22':
+                    case '24':
+                    case '30':
+                    case '38':
+                    case '40':
+                    case '47':
+                    case '52':
+                    case '53':
+                    case '56':
+                    case '57':
+                    case '59':
+                    case '62':
+                    case '68':
+                    case '72':
+                    case '73':
+                    case '76':
+                        if (answer) pragmatico++;
+                        break;
+                }
+
+                changeQ();
+                calculatePreferencesActive();
+                calculatePreferencesTheoric();
+                calculatePreferencesPragmatic();
+                calculatePreferencesReflexive();
+            }
+
+            function changeQ() {
+                var max = questions.length;
+                var realSize = max - 1;
+                contaQ++;
+
+                if (realSize == -1) {
+                    showResults();
+                } else {
+                    if (max > 0) {
+                        numberQuestion = Math.floor(Math.random() * (realSize - 0 + 1) + 0);
+                    } else {
+                        return;
+                    }
+
+                    var questionXplode = questions[numberQuestion].split("_");
+                    var questionRemove = questions[numberQuestion];
+
+                    questions.splice($.inArray(questionRemove, questions), 1);
+
+                    $("#numberQ").val(questionXplode[0]);
+                    $("#contaQ").html(contaQ + '/80');
+                    $("#questions").removeClass('hideit').addClass('showit');
+                    $("#pregunta").html(questionXplode[1]);
+                }
+            }
+
+            function showResults() {
+                var porcentajeA = (activo * 100) / 20;
+                var porcentajeT = (teorico * 100) / 20;
+                var porcentajeP = (pragmatico * 100) / 20;
+                var porcentajeR = (reflexivo * 100) / 20;
+
+                $("#porcentajeActivo").css('width', porcentajeA + '%').html(activo + ' de valoración');
+                $("#porcentajeTeorico").css('width', porcentajeT + '%').html(teorico + ' de valoración');
+                $("#porcentajePragmatico").css('width', porcentajeP + '%').html(pragmatico + ' de valoración');
+                $("#porcentajeReflexivo").css('width', porcentajeR + '%').html(reflexivo + ' de valoración');
+
+                $("#questions, #buttons, #contentContaQ").addClass('hideit');
+                $("#notis").removeClass('hideit').html("Resultados");
+                $("#resultados").removeClass('hideit');
+            }
+
+            function calculatePreferencesActive() {
+                calculatePreferences('activ');
+                $('#nivelActivo').html(stPreferencia);
+                $('#eresActivo').html(stNivelEres);
+            }
+
+            function calculatePreferencesTheoric() {
+                calculatePreferences('teori');
+                $('#nivelTeorico').html(stPreferencia);
+                $('#eresTeorico').html(stNivelEres);
+            }
+
+            function calculatePreferencesPragmatic() {
+                calculatePreferences('pragm');
+                $('#nivelPragmatico').html(stPreferencia);
+                $('#eresPragmatico').html(stNivelEres);
+            }
+
+            function calculatePreferencesReflexive() {
+                calculatePreferences('refle');
+                $('#nivelReflexivo').html(stPreferencia);
+                $('#eresReflexivo').html(stNivelEres);
+            }
+        });
+    </script>
+</body>
+</html>
